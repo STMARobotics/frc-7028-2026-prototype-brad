@@ -6,10 +6,29 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class RobotContainer {
+  private final CommandSwerveDrivetrain driveSubsystem = new CommandSwerveDrivetrain();
+  private final CommandXboxController driverController = new CommandXboxController(0);
+
   public RobotContainer() {
     configureBindings();
+    configureDefaultCommands();
+  }
+
+  private void configureDefaultCommands() {
+    driveSubsystem.setDefaultCommand(
+      driveSubsystem.run(() -> 
+        driveSubsystem.drive(
+          -driverController.getLeftY(),   // Forward/backward
+          -driverController.getLeftX(),   // Left/right strafe
+          -driverController.getRightX(),  // Rotation
+          true                          // Field-relative (false for robot-relative)
+        )
+      )
+    );
   }
 
   private void configureBindings() {}
