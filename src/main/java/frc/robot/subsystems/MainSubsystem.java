@@ -19,7 +19,7 @@ public class MainSubsystem extends SubsystemBase {
 
     private final SlotConfigs pid = new SlotConfigs();
 
-    private final double velocity = 40;
+    private final double velocity = 60;
 
     private final VelocityTorqueCurrentFOC oneControl = new VelocityTorqueCurrentFOC(0.0);
     private final VelocityTorqueCurrentFOC twoControl = new VelocityTorqueCurrentFOC(0.0);
