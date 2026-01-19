@@ -8,8 +8,6 @@ import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class MainSubsystem extends SubsystemBase {
@@ -21,7 +19,7 @@ public class MainSubsystem extends SubsystemBase {
 
     private final SlotConfigs pid = new SlotConfigs();
 
-    private final double velocity = 50;
+    private final double velocity = 50; // rps change this one for speed
 
     private final VelocityTorqueCurrentFOC oneControl = new VelocityTorqueCurrentFOC(0.0);
 
@@ -42,6 +40,7 @@ public class MainSubsystem extends SubsystemBase {
         motorFour.getConfigurator().apply(pid);
 
         motorFour.setControl(new Follower(2, MotorAlignmentValue.Opposed));
+        // motorTwo.setControl(new Follower(2, MotorAlignmentValue.Opposed));
 
     }
 
