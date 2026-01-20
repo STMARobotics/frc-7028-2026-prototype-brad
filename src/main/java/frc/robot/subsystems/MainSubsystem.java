@@ -19,6 +19,7 @@ public class MainSubsystem extends SubsystemBase {
     private final SlotConfigs backSpinPid = new SlotConfigs();
 
     private final double targetVelocity = 30;
+    private final double backSpinVelocity = 10;
 
     private final VelocityTorqueCurrentFOC shooterControl = new VelocityTorqueCurrentFOC(0.0);
     private final VelocityTorqueCurrentFOC backSpinControl = new VelocityTorqueCurrentFOC(0.0);
@@ -49,7 +50,7 @@ public class MainSubsystem extends SubsystemBase {
     }
 
     public void runBackSpin() {
-        backSpinMotor.setControl(backSpinCycle.withOutput(0.3));
+        backSpinMotor.setControl(backSpinControl.withVelocity(backSpinVelocity));
     }
 
     public void runShootDutyCycle() {
