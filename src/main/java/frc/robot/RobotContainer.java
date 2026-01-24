@@ -7,14 +7,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.RunDutyCycleCommand;
-import frc.robot.commands.ShootCommand;
-import frc.robot.subsystems.MainSubsystem;
+// import frc.robot.subsystems.FeederSubsytem;
+import frc.robot.subsystems.FlywheelSubsystem;
+// import frc.robot.subsystems.SpindexerSubsystem;
 
 public class RobotContainer {
 
-  private final MainSubsystem mainSubsystem = new MainSubsystem();
-  
+  private final FlywheelSubsystem flywheelSubsystem = new FlywheelSubsystem();
+  // private final SpindexerSubsystem spindexerSubsystem = new SpindexerSubsystem();
+  // private final FeederSubsytem feederSubsytem = new FeederSubsytem();
+
   public RobotContainer() {
     configureBindings();
   }
@@ -22,8 +24,15 @@ public class RobotContainer {
   private final CommandXboxController controller = new CommandXboxController(0);
 
   private void configureBindings() {
-    controller.rightTrigger().whileTrue(new ShootCommand(mainSubsystem));
-    controller.leftTrigger().toggleOnTrue(new RunDutyCycleCommand(mainSubsystem));
+    controller.rightTrigger()
+        .whileTrue(Commands.runEnd(flywheelSubsystem::runMotors, flywheelSubsystem::stop, flywheelSubsystem));
+    controller.leftTrigger()
+        .whileTrue(Commands.runEnd(flywheelSubsystem::runDutyCycle, flywheelSubsystem::stop, flywheelSubsystem));
+    // controller.a()
+        // .whileTrue(Commands.runEnd(spindexerSubsystem::runMotors, spindexerSubsystem::stop, spindexerSubsystem));
+    // controller.a()
+        // .whileTrue(Commands.runEnd(feederSubsytem::runMotors, feederSubsytem::stop, feederSubsytem));
+  
   }
 
   public Command getAutonomousCommand() {

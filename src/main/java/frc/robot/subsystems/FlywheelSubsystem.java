@@ -10,7 +10,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class MainSubsystem extends SubsystemBase {
+public class FlywheelSubsystem extends SubsystemBase {
 
     private final TalonFX motorOne = new TalonFX(0);
     private final TalonFX motorTwo = new TalonFX(1);
@@ -19,20 +19,20 @@ public class MainSubsystem extends SubsystemBase {
 
     private final SlotConfigs pid = new SlotConfigs();
 
-    private final double velocity = 50; // rps change this one for speed
+    private final double velocity = 70; // rps change this one for speed
 
     private final VelocityTorqueCurrentFOC oneControl = new VelocityTorqueCurrentFOC(0.0);
 
     private final DutyCycleOut cycle = new DutyCycleOut(0);
 
-    public MainSubsystem() {
+    public FlywheelSubsystem() {
         var config = new TalonFXConfiguration();
         pid.kV = .085;
         pid.kP = 11;
         pid.kI = 0;
         pid.kD = 0;
 
-        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         motorThree.getConfigurator().apply(config);
         motorOne.getConfigurator().apply(pid);
         motorTwo.getConfigurator().apply(pid);
